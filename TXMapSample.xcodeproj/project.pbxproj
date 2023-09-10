@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		F9D5C16D2AACBCF10064CD0B /* TXMapSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */; };
-		F9D5C16F2AACBCF10064CD0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C16E2AACBCF10064CD0B /* ContentView.swift */; };
 		F9D5C1712AACBCF60064CD0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D5C1702AACBCF60064CD0B /* Assets.xcassets */; };
 		F9D5C1742AACBCF70064CD0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D5C1732AACBCF70064CD0B /* Preview Assets.xcassets */; };
-		F9D5C1762AACBCF70064CD0B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1752AACBCF70064CD0B /* Persistence.swift */; };
 		F9D5C1792AACBCF70064CD0B /* TXMapSample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1772AACBCF70064CD0B /* TXMapSample.xcdatamodeld */; };
 		F9D5C1832AACBCF70064CD0B /* TXMapSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1822AACBCF70064CD0B /* TXMapSampleTests.swift */; };
 		F9D5C18D2AACBCF70064CD0B /* TXMapSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C18C2AACBCF70064CD0B /* TXMapSampleUITests.swift */; };
 		F9D5C18F2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C18E2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift */; };
+		F9D5C1A02AACC4670064CD0B /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = F9D5C19F2AACC4670064CD0B /* Mapbox */; };
+		F9D5C1A32AACC7130064CD0B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A22AACC7130064CD0B /* MainView.swift */; };
+		F9D5C1A52AACC8ED0064CD0B /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */; };
+		F9D5C1AA2AACD8790064CD0B /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A92AACD8790064CD0B /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,16 +40,17 @@
 /* Begin PBXFileReference section */
 		F9D5C1692AACBCF10064CD0B /* TXMapSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXMapSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleApp.swift; sourceTree = "<group>"; };
-		F9D5C16E2AACBCF10064CD0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F9D5C1702AACBCF60064CD0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9D5C1732AACBCF70064CD0B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F9D5C1752AACBCF70064CD0B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		F9D5C1782AACBCF70064CD0B /* TXMapSample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TXMapSample.xcdatamodel; sourceTree = "<group>"; };
 		F9D5C17E2AACBCF70064CD0B /* TXMapSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TXMapSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D5C1822AACBCF70064CD0B /* TXMapSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleTests.swift; sourceTree = "<group>"; };
 		F9D5C1882AACBCF70064CD0B /* TXMapSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TXMapSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D5C18C2AACBCF70064CD0B /* TXMapSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleUITests.swift; sourceTree = "<group>"; };
 		F9D5C18E2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F9D5C1A22AACC7130064CD0B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
+		F9D5C1A92AACD8790064CD0B /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9D5C1A02AACC4670064CD0B /* Mapbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,9 +103,11 @@
 			isa = PBXGroup;
 			children = (
 				F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */,
-				F9D5C16E2AACBCF10064CD0B /* ContentView.swift */,
+				F9D5C19B2AACC0EC0064CD0B /* Model */,
+				F9D5C1A12AACC64C0064CD0B /* ViewModel */,
+				F9D5C19C2AACC1080064CD0B /* View */,
+				F9D5C1A82AACD84C0064CD0B /* Key */,
 				F9D5C1702AACBCF60064CD0B /* Assets.xcassets */,
-				F9D5C1752AACBCF70064CD0B /* Persistence.swift */,
 				F9D5C1772AACBCF70064CD0B /* TXMapSample.xcdatamodeld */,
 				F9D5C1722AACBCF70064CD0B /* Preview Content */,
 			);
@@ -133,6 +139,45 @@
 			path = TXMapSampleUITests;
 			sourceTree = "<group>";
 		};
+		F9D5C19B2AACC0EC0064CD0B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F9D5C19C2AACC1080064CD0B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F9D5C19D2AACC1A40064CD0B /* MainView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F9D5C19D2AACC1A40064CD0B /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				F9D5C1A22AACC7130064CD0B /* MainView.swift */,
+				F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		F9D5C1A12AACC64C0064CD0B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F9D5C1A82AACD84C0064CD0B /* Key */ = {
+			isa = PBXGroup;
+			children = (
+				F9D5C1A92AACD8790064CD0B /* APIKey.swift */,
+			);
+			path = Key;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,6 +194,9 @@
 			dependencies = (
 			);
 			name = TXMapSample;
+			packageProductDependencies = (
+				F9D5C19F2AACC4670064CD0B /* Mapbox */,
+			);
 			productName = TXMapSample;
 			productReference = F9D5C1692AACBCF10064CD0B /* TXMapSample.app */;
 			productType = "com.apple.product-type.application";
@@ -221,6 +269,9 @@
 				Base,
 			);
 			mainGroup = F9D5C1602AACBCF00064CD0B;
+			packageReferences = (
+				F9D5C19E2AACC4670064CD0B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+			);
 			productRefGroup = F9D5C16A2AACBCF10064CD0B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -263,9 +314,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9D5C1A52AACC8ED0064CD0B /* MainMapView.swift in Sources */,
 				F9D5C1792AACBCF70064CD0B /* TXMapSample.xcdatamodeld in Sources */,
-				F9D5C1762AACBCF70064CD0B /* Persistence.swift in Sources */,
-				F9D5C16F2AACBCF10064CD0B /* ContentView.swift in Sources */,
+				F9D5C1A32AACC7130064CD0B /* MainView.swift in Sources */,
+				F9D5C1AA2AACD8790064CD0B /* APIKey.swift in Sources */,
 				F9D5C16D2AACBCF10064CD0B /* TXMapSampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +485,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,6 +515,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -591,6 +645,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F9D5C19E2AACC4670064CD0B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F9D5C19F2AACC4670064CD0B /* Mapbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F9D5C19E2AACC4670064CD0B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = Mapbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		F9D5C1772AACBCF70064CD0B /* TXMapSample.xcdatamodeld */ = {
