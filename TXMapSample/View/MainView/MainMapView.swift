@@ -86,8 +86,14 @@ struct MainMapView: UIViewRepresentable {
         // 線の色
         layer.lineColor = NSExpression(forConstantValue: UIColor.red)
         
+//        // 線の幅（固定値）
+//        layer.lineWidth = NSExpression(forConstantValue: 2.0)
+        
         // 線の幅
-        layer.lineWidth = NSExpression(forConstantValue: 2.0)
+        // ズームレベルに応じて幅を変えたい場合 mgl_interpolate:withCurveType:parameters:stops: を使って定義します
+        layer.lineWidth = NSExpression(
+            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)", [10: 2.0, 18: 100.0]
+        )
         
         // Viewにレイヤーを追加
         style.addLayer(layer)
