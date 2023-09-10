@@ -9,7 +9,7 @@ struct MainMapView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> some UIView {
-        let styleURL = URL(string: "https://api.maptiler.com/maps/streets-v2/style.json?key=\(mapTilerAPIKey)")
+        let styleURL = URL(string: "https://api.maptiler.com/maps/jp-mierune-dark/style.json?key=\(mapTilerAPIKey)")
         
         let mapView = MGLMapView(frame: .zero, styleURL: styleURL)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
