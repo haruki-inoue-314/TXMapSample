@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F9579C7A2AAD890D00452A13 /* TX_Station.geojson in Resources */ = {isa = PBXBuildFile; fileRef = F9579C782AAD890D00452A13 /* TX_Station.geojson */; };
+		F9579C7B2AAD890D00452A13 /* TX_Railway.geojson in Resources */ = {isa = PBXBuildFile; fileRef = F9579C792AAD890D00452A13 /* TX_Railway.geojson */; };
 		F9D5C16D2AACBCF10064CD0B /* TXMapSampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */; };
 		F9D5C1712AACBCF60064CD0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D5C1702AACBCF60064CD0B /* Assets.xcassets */; };
 		F9D5C1742AACBCF70064CD0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9D5C1732AACBCF70064CD0B /* Preview Assets.xcassets */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F9579C782AAD890D00452A13 /* TX_Station.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TX_Station.geojson; sourceTree = "<group>"; };
+		F9579C792AAD890D00452A13 /* TX_Railway.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TX_Railway.geojson; sourceTree = "<group>"; };
 		F9D5C1692AACBCF10064CD0B /* TXMapSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TXMapSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleApp.swift; sourceTree = "<group>"; };
 		F9D5C1702AACBCF60064CD0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F9579C732AAD889E00452A13 /* GeoJSON */ = {
+			isa = PBXGroup;
+			children = (
+				F9579C792AAD890D00452A13 /* TX_Railway.geojson */,
+				F9579C782AAD890D00452A13 /* TX_Station.geojson */,
+			);
+			path = GeoJSON;
+			sourceTree = "<group>";
+		};
 		F9D5C1602AACBCF00064CD0B = {
 			isa = PBXGroup;
 			children = (
@@ -104,9 +117,9 @@
 			children = (
 				F9D5C16C2AACBCF10064CD0B /* TXMapSampleApp.swift */,
 				F9D5C19B2AACC0EC0064CD0B /* Model */,
-				F9D5C1A12AACC64C0064CD0B /* ViewModel */,
 				F9D5C19C2AACC1080064CD0B /* View */,
 				F9D5C1A82AACD84C0064CD0B /* Key */,
+				F9579C732AAD889E00452A13 /* GeoJSON */,
 				F9D5C1702AACBCF60064CD0B /* Assets.xcassets */,
 				F9D5C1772AACBCF70064CD0B /* TXMapSample.xcdatamodeld */,
 				F9D5C1722AACBCF70064CD0B /* Preview Content */,
@@ -161,13 +174,6 @@
 				F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */,
 			);
 			path = MainView;
-			sourceTree = "<group>";
-		};
-		F9D5C1A12AACC64C0064CD0B /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F9D5C1A82AACD84C0064CD0B /* Key */ = {
@@ -289,7 +295,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9D5C1742AACBCF70064CD0B /* Preview Assets.xcassets in Resources */,
+				F9579C7B2AAD890D00452A13 /* TX_Railway.geojson in Resources */,
 				F9D5C1712AACBCF60064CD0B /* Assets.xcassets in Resources */,
+				F9579C7A2AAD890D00452A13 /* TX_Station.geojson in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,8 +33,64 @@ struct MainMapView: UIViewRepresentable {
         }
         
         func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-            
+            self.control.drawRailwayLine(mapView)
         }
+    }
+    
+    func drawRailwayLine(_ mapView: MGLMapView) {
+        Task {
+            let data = await loadGeoJSONData()
+            
+            await MainActor.run {
+                drawPolyline(mapView, geoJson: data)
+            }
+        }
+    }
+    
+    func loadGeoJSONData() async -> Data {
+        guard let jsonURL = Bundle.main.url(forResource: "TX_Railway", withExtension: "geojson") else {
+            preconditionFailure("GeoJSONファイルの読み込みに失敗しました")
+        }
+        
+        guard let jsonData = try? Data(contentsOf: jsonURL) else {
+            preconditionFailure("GeoJSONファイルのパースに失敗しました")
+        }
+        
+        return jsonData
+    }
+    
+    func drawPolyline(_ mapView: MGLMapView, geoJson: Data) {
+        
+        guard let style = mapView.style else {
+            return
+        }
+        
+        // GeoJSONデータからShapeを生成
+        guard
+            let shapeFromGeoJson = try? MGLShape(data: geoJson, encoding: String.Encoding.utf8.rawValue)
+        else {
+            fatalError("MGLShapeの生成ができませんでした")
+        }
+        
+        // 表示ソースを定義
+        let soruce = MGLShapeSource(identifier: "polyline", shape: shapeFromGeoJson, options: nil)
+        style.addSource(soruce)
+        
+        // レイヤーを定義
+        let layer = MGLLineStyleLayer(identifier: "polyline", source: soruce)
+        
+        // 始点・終点の形
+        layer.lineJoin = NSExpression(forConstantValue: "round")
+        layer.lineCap = NSExpression(forConstantValue: "round")
+        
+        // 線の色
+        layer.lineColor = NSExpression(forConstantValue: UIColor.red)
+        
+        // 線の幅
+        layer.lineWidth = NSExpression(forConstantValue: 2.0)
+        
+        // Viewにレイヤーを追加
+        style.addLayer(layer)
     }
     
 }
