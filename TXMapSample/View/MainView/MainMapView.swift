@@ -33,22 +33,25 @@ struct MainMapView: UIViewRepresentable {
         }
         
         func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-            self.control.drawRailwayLine(mapView)
+            self.control.drawRailwayAndStation(mapView)
         }
     }
     
-    func drawRailwayLine(_ mapView: MGLMapView) {
+    func drawRailwayAndStation(_ mapView: MGLMapView) {
         Task {
-            let data = await loadGeoJSONData()
+            let railwayData = await loadGeoJSONData(resouceName: "TX_Railway")
+            let stationData = await loadGeoJSONData(resouceName: "TX_Station")
             
             await MainActor.run {
-                drawPolyline(mapView, geoJson: data)
+                drawRailway(mapView, geoJson: railwayData)
+                createStationMarker(mapView, geoJson: stationData)
             }
+            
         }
     }
     
-    func loadGeoJSONData() async -> Data {
-        guard let jsonURL = Bundle.main.url(forResource: "TX_Railway", withExtension: "geojson") else {
+    func loadGeoJSONData(resouceName: String) async -> Data {
+        guard let jsonURL = Bundle.main.url(forResource: resouceName, withExtension: "geojson") else {
             preconditionFailure("GeoJSONファイルの読み込みに失敗しました")
         }
         
@@ -59,7 +62,7 @@ struct MainMapView: UIViewRepresentable {
         return jsonData
     }
     
-    func drawPolyline(_ mapView: MGLMapView, geoJson: Data) {
+    func drawRailway(_ mapView: MGLMapView, geoJson: Data) {
         
         guard let style = mapView.style else {
             return
@@ -73,18 +76,18 @@ struct MainMapView: UIViewRepresentable {
         }
         
         // 表示ソースを定義
-        let soruce = MGLShapeSource(identifier: "polyline", shape: shapeFromGeoJson, options: nil)
+        let soruce = MGLShapeSource(identifier: "railway-polyline", shape: shapeFromGeoJson, options: nil)
         style.addSource(soruce)
         
         // レイヤーを定義
-        let layer = MGLLineStyleLayer(identifier: "polyline", source: soruce)
+        let layer = MGLLineStyleLayer(identifier: "railway-polyline", source: soruce)
         
         // 始点・終点の形
         layer.lineJoin = NSExpression(forConstantValue: "round")
         layer.lineCap = NSExpression(forConstantValue: "round")
         
         // 線の色
-        layer.lineColor = NSExpression(forConstantValue: UIColor.red)
+        layer.lineColor = NSExpression(forConstantValue: UIColor.cyan)
         
 //        // 線の幅（固定値）
 //        layer.lineWidth = NSExpression(forConstantValue: 2.0)
@@ -92,11 +95,44 @@ struct MainMapView: UIViewRepresentable {
         // 線の幅
         // ズームレベルに応じて幅を変えたい場合 mgl_interpolate:withCurveType:parameters:stops: を使って定義します
         layer.lineWidth = NSExpression(
-            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)", [10: 2.0, 18: 100.0]
+            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)", [10: 2.0, 18: 8.0]
         )
         
         // Viewにレイヤーを追加
         style.addLayer(layer)
+    }
+    
+    func createStationMarker(_ mapView: MGLMapView, geoJson: Data) {
+        
+        guard let style = mapView.style else {
+            return
+        }
+        
+        // GeoJSONデータからShapeを生成
+        guard
+            let shapeFromGeoJson = try? MGLShape(data: geoJson, encoding: String.Encoding.utf8.rawValue)
+        else {
+            fatalError("MGLShapeの生成ができませんでした")
+        }
+
+        let shapeSoruce = MGLShapeSource(identifier: "station-point-source", shape: shapeFromGeoJson, options: nil)
+        let shapeLayer = MGLSymbolStyleLayer(identifier: "station-marker-layer", source: shapeSoruce)
+        
+        if let image = UIImage(named: "station_icon") {
+            style.setImage(image, forName: "station-symbol")
+        }
+        
+        shapeLayer.iconImageName = NSExpression(forConstantValue: "station-symbol")
+        shapeLayer.iconScale = NSExpression(forConstantValue: 0.5)
+        shapeLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        shapeLayer.text = NSExpression(forKeyPath: "N05_011")
+        shapeLayer.textColor = NSExpression(forConstantValue: UIColor.white)
+        shapeLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -24)))
+        shapeLayer.textFontSize = NSExpression(forConstantValue: 12.0)
+        shapeLayer.textIgnoresPlacement = NSExpression(forConstantValue: true)
+
+        style.addSource(shapeSoruce)
+        style.addLayer(shapeLayer)
     }
     
 }

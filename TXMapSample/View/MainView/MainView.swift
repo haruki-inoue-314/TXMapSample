@@ -9,8 +9,10 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        MainMapView()
-            .edgesIgnoringSafeArea(.all)
+        ZStack(alignment: .topLeading) {
+            MainMapView()
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
