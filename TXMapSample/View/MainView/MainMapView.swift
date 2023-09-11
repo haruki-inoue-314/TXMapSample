@@ -44,7 +44,7 @@ struct MainMapView: UIViewRepresentable {
             
             await MainActor.run {
                 drawRailway(mapView, geoJson: railwayData)
-                createStationMarker(mapView, geoJson: stationData)
+                drawStation(mapView, geoJson: stationData)
             }
             
         }
@@ -76,33 +76,34 @@ struct MainMapView: UIViewRepresentable {
         }
         
         // 表示ソースを定義
-        let soruce = MGLShapeSource(identifier: "railway-polyline", shape: shapeFromGeoJson, options: nil)
-        style.addSource(soruce)
+        let shapeSoruce = MGLShapeSource(identifier: "railway-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSoruce)
         
         // レイヤーを定義
-        let layer = MGLLineStyleLayer(identifier: "railway-polyline", source: soruce)
+        let lineLayer = MGLLineStyleLayer(identifier: "railway-line-style", source: shapeSoruce)
         
         // 始点・終点の形
-        layer.lineJoin = NSExpression(forConstantValue: "round")
-        layer.lineCap = NSExpression(forConstantValue: "round")
+        lineLayer.lineJoin = NSExpression(forConstantValue: "round")
+        lineLayer.lineCap = NSExpression(forConstantValue: "round")
         
         // 線の色
-        layer.lineColor = NSExpression(forConstantValue: UIColor.cyan)
+        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.cyan)
         
 //        // 線の幅（固定値）
-//        layer.lineWidth = NSExpression(forConstantValue: 2.0)
+//        lineLayer.lineWidth = NSExpression(forConstantValue: 2.0)
         
         // 線の幅
         // ズームレベルに応じて幅を変えたい場合 mgl_interpolate:withCurveType:parameters:stops: を使って定義します
-        layer.lineWidth = NSExpression(
-            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)", [10: 2.0, 18: 8.0]
+        lineLayer.lineWidth = NSExpression(
+            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
+            [10: 2.0, 18: 8.0]
         )
         
         // Viewにレイヤーを追加
-        style.addLayer(layer)
+        style.addLayer(lineLayer)
     }
     
-    func createStationMarker(_ mapView: MGLMapView, geoJson: Data) {
+    func drawStation(_ mapView: MGLMapView, geoJson: Data) {
         
         guard let style = mapView.style else {
             return
@@ -115,23 +116,32 @@ struct MainMapView: UIViewRepresentable {
             fatalError("MGLShapeの生成ができませんでした")
         }
 
-        let shapeSoruce = MGLShapeSource(identifier: "station-point-source", shape: shapeFromGeoJson, options: nil)
-        let shapeLayer = MGLSymbolStyleLayer(identifier: "station-marker-layer", source: shapeSoruce)
+        // 駅の点をSourceとして登録して、MapViewのStyleに追加
+        let shapeSoruce = MGLShapeSource(identifier: "station-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSoruce)
         
-        if let image = UIImage(named: "station_icon") {
-            style.setImage(image, forName: "station-symbol")
-        }
+        // 駅の場所をCircleStyleに表示
+        let circleLayer = MGLCircleStyleLayer(identifier: "station-circle-style", source: shapeSoruce)
+        circleLayer.circleColor = NSExpression(forConstantValue: UIColor.cyan)
+        circleLayer.circleRadius = NSExpression(
+            format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
+            [10: 4.0, 18: 16.0]
+        )
+        style.addLayer(circleLayer)
         
-        shapeLayer.iconImageName = NSExpression(forConstantValue: "station-symbol")
-        shapeLayer.iconScale = NSExpression(forConstantValue: 0.5)
-        shapeLayer.iconIgnoresPlacement = NSExpression(forConstantValue: true)
+        // 駅名をSymbolStyleLayerで表示する
+        let shapeLayer = MGLSymbolStyleLayer(identifier: "station-symbol-style", source: shapeSoruce)
         shapeLayer.text = NSExpression(forKeyPath: "N05_011")
         shapeLayer.textColor = NSExpression(forConstantValue: UIColor.white)
-        shapeLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -24)))
+        shapeLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: -4, dy: -4)))
+        shapeLayer.textFontNames = NSExpression(forConstantValue: ["HiraginoSans-W6"])
         shapeLayer.textFontSize = NSExpression(forConstantValue: 12.0)
         shapeLayer.textIgnoresPlacement = NSExpression(forConstantValue: true)
+        shapeLayer.textJustification = NSExpression(forConstantValue: "right")
+        shapeLayer.textAnchor = NSExpression(forConstantValue: "bottom-right")
+        shapeLayer.textHaloColor = NSExpression(forConstantValue: UIColor.black)
+        shapeLayer.textHaloWidth = NSExpression(forConstantValue: 1.0)
 
-        style.addSource(shapeSoruce)
         style.addLayer(shapeLayer)
     }
     
