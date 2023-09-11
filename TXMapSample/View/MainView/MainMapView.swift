@@ -9,7 +9,7 @@ struct MainMapView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> some UIView {
-        let styleURL = URL(string: "https://api.maptiler.com/maps/jp-mierune-dark/style.json?key=\(mapTilerAPIKey)")
+        let styleURL = URL(string: "https://api.maptiler.com/maps/jp-mierune-gray/style.json?key=\(mapTilerAPIKey)")
         
         let mapView = MGLMapView(frame: .zero, styleURL: styleURL)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -177,14 +177,14 @@ struct MainMapView: UIViewRepresentable {
             UIColor.black
         )
         
-        fillStyleLayer.fillOpacity = NSExpression(forConstantValue: 0.15)
+        fillStyleLayer.fillOpacity = NSExpression(forConstantValue: 0.2)
         
         style.addLayer(fillStyleLayer)
         
         // ポリゴンの輪郭線スタイルを定義
         let lineLayer = MGLLineStyleLayer(identifier: "municipality-line-style", source: shapeSoruce)
         lineLayer.lineWidth = NSExpression(forConstantValue: 1.0)
-        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.white)
+        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.black)
         
         style.addLayer(lineLayer)
     }
