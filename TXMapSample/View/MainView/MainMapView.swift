@@ -14,7 +14,9 @@ struct MainMapView: UIViewRepresentable {
         let mapView = MGLMapView(frame: .zero, styleURL: styleURL)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.logoView.isHidden = true
-        mapView.setCenter(CLLocationCoordinate2D(latitude: 35.893056, longitude: 139.952417), zoomLevel: 10, animated: false)
+        
+        // TXの路線の重心を地図の中心に設定
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 35.894930906699322, longitude: 139.937432307518321), zoomLevel: 9.2, animated: false)
         
         mapView.delegate = context.coordinator
         
