@@ -43,8 +43,10 @@ struct MainMapView: UIViewRepresentable {
         Task {
             let railwayData = await loadGeoJSONData(resouceName: "TX_Railway")
             let stationData = await loadGeoJSONData(resouceName: "TX_Station")
+            let municipalityData = await loadGeoJSONData(resouceName: "TX_Municipality")
             
             await MainActor.run {
+                drawMunicipality(mapView, geoJson: municipalityData)
                 drawRailway(mapView, geoJson: railwayData)
                 drawStation(mapView, geoJson: stationData)
             }
@@ -89,7 +91,7 @@ struct MainMapView: UIViewRepresentable {
         lineLayer.lineCap = NSExpression(forConstantValue: "round")
         
         // 線の色
-        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.cyan)
+        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.orange)
         
 //        // 線の幅（固定値）
 //        lineLayer.lineWidth = NSExpression(forConstantValue: 2.0)
@@ -124,7 +126,7 @@ struct MainMapView: UIViewRepresentable {
         
         // 駅の場所をCircleStyleに表示
         let circleLayer = MGLCircleStyleLayer(identifier: "station-circle-style", source: shapeSoruce)
-        circleLayer.circleColor = NSExpression(forConstantValue: UIColor.cyan)
+        circleLayer.circleColor = NSExpression(forConstantValue: UIColor.orange)
         circleLayer.circleRadius = NSExpression(
             format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
             [10: 4.0, 18: 16.0]
@@ -145,6 +147,46 @@ struct MainMapView: UIViewRepresentable {
         shapeLayer.textHaloWidth = NSExpression(forConstantValue: 1.0)
 
         style.addLayer(shapeLayer)
+    }
+    
+    func drawMunicipality(_ mapView: MGLMapView, geoJson: Data) {
+        guard let style = mapView.style else {
+            return
+        }
+        
+        // GeoJSONデータからShapeを生成
+        guard
+            let shapeFromGeoJson = try? MGLShape(data: geoJson, encoding: String.Encoding.utf8.rawValue)
+        else {
+            fatalError("MGLShapeの生成ができませんでした")
+        }
+        
+        // 土地利用のポリゴンをSourceとして登録して、MapViewのStyleに追加
+        let shapeSoruce = MGLShapeSource(identifier: "municipality-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSoruce)
+        
+        // 市町村ポリゴンのスタイルを定義
+        let fillStyleLayer = MGLFillStyleLayer(identifier: "municipality-fill-style", source: shapeSoruce)
+
+        fillStyleLayer.fillColor = NSExpression(
+            format: "MGL_MATCH(N03_001, '東京都', %@, '埼玉県', %@, '千葉県', %@, '茨城県', %@, %@)",
+            UIColor.red,
+            UIColor.yellow,
+            UIColor.green,
+            UIColor.blue,
+            UIColor.black
+        )
+        
+        fillStyleLayer.fillOpacity = NSExpression(forConstantValue: 0.15)
+        
+        style.addLayer(fillStyleLayer)
+        
+        // ポリゴンの輪郭線スタイルを定義
+        let lineLayer = MGLLineStyleLayer(identifier: "municipality-line-style", source: shapeSoruce)
+        lineLayer.lineWidth = NSExpression(forConstantValue: 1.0)
+        lineLayer.lineColor = NSExpression(forConstantValue: UIColor.white)
+        
+        style.addLayer(lineLayer)
     }
     
 }
