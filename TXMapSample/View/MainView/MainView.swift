@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
-            MainMapView()
+            MapView()
         }
         .edgesIgnoringSafeArea(.all)
     }

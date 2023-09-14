@@ -2,7 +2,7 @@ import Mapbox
 import MapKit
 import SwiftUI
 
-struct MainMapView: UIViewRepresentable {
+struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
         
@@ -16,21 +16,28 @@ struct MainMapView: UIViewRepresentable {
         mapView.logoView.isHidden = true
         
         // TXの路線の重心を地図の中心に設定
-        mapView.setCenter(CLLocationCoordinate2D(latitude: 35.894930906699322, longitude: 139.937432307518321), zoomLevel: 9.2, animated: false)
+        mapView.setCenter(
+            CLLocationCoordinate2D(
+                latitude: 35.894930906699322,
+                longitude: 139.937432307518321
+            ),
+            zoomLevel: 9.2,
+            animated: false
+        )
         
         mapView.delegate = context.coordinator
         
         return mapView
     }
     
-    func makeCoordinator() -> MainMapView.Coordinator {
+    func makeCoordinator() -> MapView.Coordinator {
         Coordinator(self)
     }
     
     class Coordinator: NSObject, MGLMapViewDelegate {
-        var control: MainMapView
+        var control: MapView
         
-        init(_ control: MainMapView) {
+        init(_ control: MapView) {
             self.control = control
         }
         

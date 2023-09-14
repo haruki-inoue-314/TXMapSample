@@ -19,7 +19,7 @@
 		F9D5C18F2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C18E2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift */; };
 		F9D5C1A02AACC4670064CD0B /* Mapbox in Frameworks */ = {isa = PBXBuildFile; productRef = F9D5C19F2AACC4670064CD0B /* Mapbox */; };
 		F9D5C1A32AACC7130064CD0B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A22AACC7130064CD0B /* MainView.swift */; };
-		F9D5C1A52AACC8ED0064CD0B /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */; };
+		F9D5C1A52AACC8ED0064CD0B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A42AACC8ED0064CD0B /* MapView.swift */; };
 		F9D5C1AA2AACD8790064CD0B /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D5C1A92AACD8790064CD0B /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +55,7 @@
 		F9D5C18C2AACBCF70064CD0B /* TXMapSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleUITests.swift; sourceTree = "<group>"; };
 		F9D5C18E2AACBCF70064CD0B /* TXMapSampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TXMapSampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F9D5C1A22AACC7130064CD0B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
+		F9D5C1A42AACC8ED0064CD0B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F9D5C1A92AACD8790064CD0B /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				F9D5C1A22AACC7130064CD0B /* MainView.swift */,
-				F9D5C1A42AACC8ED0064CD0B /* MainMapView.swift */,
+				F9D5C1A42AACC8ED0064CD0B /* MapView.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -326,7 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9D5C1A52AACC8ED0064CD0B /* MainMapView.swift in Sources */,
+				F9D5C1A52AACC8ED0064CD0B /* MapView.swift in Sources */,
 				F9D5C1792AACBCF70064CD0B /* TXMapSample.xcdatamodeld in Sources */,
 				F9D5C1A32AACC7130064CD0B /* MainView.swift in Sources */,
 				F9D5C1AA2AACD8790064CD0B /* APIKey.swift in Sources */,
