@@ -9,7 +9,7 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> some UIView {
-        let styleURL = URL(string: "https://api.maptiler.com/maps/jp-mierune-gray/style.json?key=\(mapTilerAPIKey)")
+        let styleURL = URL(string: "https://api.maptiler.com/maps/jp-mierune-gray/style.json?key=\(APIKey.mapTilerKey)")
         
         let mapView = MGLMapView(frame: .zero, styleURL: styleURL)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -48,9 +48,9 @@ struct MapView: UIViewRepresentable {
     
     func drawRailwayAndStation(_ mapView: MGLMapView) {
         Task {
-            let railwayData = await loadGeoJSONData(resouceName: "TX_Railway")
-            let stationData = await loadGeoJSONData(resouceName: "TX_Station")
-            let municipalityData = await loadGeoJSONData(resouceName: "TX_Municipality")
+            let railwayData = await loadGeoJSONData(resourceName: "TX_Railway")
+            let stationData = await loadGeoJSONData(resourceName: "TX_Station")
+            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
             
             await MainActor.run {
                 drawMunicipality(mapView, geoJson: municipalityData)
@@ -61,8 +61,8 @@ struct MapView: UIViewRepresentable {
         }
     }
     
-    func loadGeoJSONData(resouceName: String) async -> Data {
-        guard let jsonURL = Bundle.main.url(forResource: resouceName, withExtension: "geojson") else {
+    func loadGeoJSONData(resourceName: String) async -> Data {
+        guard let jsonURL = Bundle.main.url(forResource: resourceName, withExtension: "geojson") else {
             preconditionFailure("GeoJSONファイルの読み込みに失敗しました")
         }
         
