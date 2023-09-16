@@ -48,12 +48,12 @@ struct MapView: UIViewRepresentable {
     
     func drawRailwayAndStation(_ mapView: MGLMapView) {
         Task {
+            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
             let railwayData = await loadGeoJSONData(resourceName: "TX_Railway")
             let stationData = await loadGeoJSONData(resourceName: "TX_Station")
-//            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
             
             await MainActor.run {
-//                drawMunicipality(mapView, geoJson: municipalityData)
+                drawMunicipality(mapView, geoJson: municipalityData)
                 drawRailway(mapView, geoJson: railwayData)
                 drawStation(mapView, geoJson: stationData)
             }
