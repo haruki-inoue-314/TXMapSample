@@ -49,13 +49,13 @@ struct MapView: UIViewRepresentable {
     func drawRailwayAndStation(_ mapView: MGLMapView) {
         Task {
             let railwayData = await loadGeoJSONData(resourceName: "TX_Railway")
-//            let stationData = await loadGeoJSONData(resourceName: "TX_Station")
+            let stationData = await loadGeoJSONData(resourceName: "TX_Station")
 //            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
             
             await MainActor.run {
 //                drawMunicipality(mapView, geoJson: municipalityData)
                 drawRailway(mapView, geoJson: railwayData)
-//                drawStation(mapView, geoJson: stationData)
+                drawStation(mapView, geoJson: stationData)
             }
             
         }
@@ -87,11 +87,11 @@ struct MapView: UIViewRepresentable {
         }
         
         // 表示ソースを定義
-        let shapeSoruce = MGLShapeSource(identifier: "railway-source", shape: shapeFromGeoJson, options: nil)
-        style.addSource(shapeSoruce)
+        let shapeSource = MGLShapeSource(identifier: "railway-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSource)
         
         // レイヤーを定義
-        let lineLayer = MGLLineStyleLayer(identifier: "railway-line-style", source: shapeSoruce)
+        let lineLayer = MGLLineStyleLayer(identifier: "railway-line-style", source: shapeSource)
         
         // 始点・終点の形
         lineLayer.lineJoin = NSExpression(forConstantValue: "round")
@@ -169,11 +169,11 @@ struct MapView: UIViewRepresentable {
         }
         
         // 土地利用のポリゴンをSourceとして登録して、MapViewのStyleに追加
-        let shapeSoruce = MGLShapeSource(identifier: "municipality-source", shape: shapeFromGeoJson, options: nil)
-        style.addSource(shapeSoruce)
+        let shapeSource = MGLShapeSource(identifier: "municipality-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSource)
         
         // 市町村ポリゴンのスタイルを定義
-        let fillStyleLayer = MGLFillStyleLayer(identifier: "municipality-fill-style", source: shapeSoruce)
+        let fillStyleLayer = MGLFillStyleLayer(identifier: "municipality-fill-style", source: shapeSource)
 
         fillStyleLayer.fillColor = NSExpression(
             format: "MGL_MATCH(N03_001, '東京都', %@, '埼玉県', %@, '千葉県', %@, '茨城県', %@, %@)",
@@ -189,7 +189,7 @@ struct MapView: UIViewRepresentable {
         style.addLayer(fillStyleLayer)
         
         // ポリゴンの輪郭線スタイルを定義
-        let lineLayer = MGLLineStyleLayer(identifier: "municipality-line-style", source: shapeSoruce)
+        let lineLayer = MGLLineStyleLayer(identifier: "municipality-line-style", source: shapeSource)
         lineLayer.lineWidth = NSExpression(forConstantValue: 1.0)
         lineLayer.lineColor = NSExpression(forConstantValue: UIColor.black)
         
