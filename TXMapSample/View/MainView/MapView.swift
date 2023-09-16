@@ -49,13 +49,13 @@ struct MapView: UIViewRepresentable {
     func drawRailwayAndStation(_ mapView: MGLMapView) {
         Task {
             let railwayData = await loadGeoJSONData(resourceName: "TX_Railway")
-            let stationData = await loadGeoJSONData(resourceName: "TX_Station")
-            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
+//            let stationData = await loadGeoJSONData(resourceName: "TX_Station")
+//            let municipalityData = await loadGeoJSONData(resourceName: "TX_Municipality")
             
             await MainActor.run {
-                drawMunicipality(mapView, geoJson: municipalityData)
+//                drawMunicipality(mapView, geoJson: municipalityData)
                 drawRailway(mapView, geoJson: railwayData)
-                drawStation(mapView, geoJson: stationData)
+//                drawStation(mapView, geoJson: stationData)
             }
             
         }
@@ -128,11 +128,11 @@ struct MapView: UIViewRepresentable {
         }
 
         // 駅の点をSourceとして登録して、MapViewのStyleに追加
-        let shapeSoruce = MGLShapeSource(identifier: "station-source", shape: shapeFromGeoJson, options: nil)
-        style.addSource(shapeSoruce)
+        let shapeSource = MGLShapeSource(identifier: "station-source", shape: shapeFromGeoJson, options: nil)
+        style.addSource(shapeSource)
         
         // 駅の場所をCircleStyleに表示
-        let circleLayer = MGLCircleStyleLayer(identifier: "station-circle-style", source: shapeSoruce)
+        let circleLayer = MGLCircleStyleLayer(identifier: "station-circle-style", source: shapeSource)
         circleLayer.circleColor = NSExpression(forConstantValue: UIColor.orange)
         circleLayer.circleRadius = NSExpression(
             format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
@@ -141,7 +141,7 @@ struct MapView: UIViewRepresentable {
         style.addLayer(circleLayer)
         
         // 駅名をSymbolStyleLayerで表示する
-        let shapeLayer = MGLSymbolStyleLayer(identifier: "station-symbol-style", source: shapeSoruce)
+        let shapeLayer = MGLSymbolStyleLayer(identifier: "station-symbol-style", source: shapeSource)
         shapeLayer.text = NSExpression(forKeyPath: "N05_011")
         shapeLayer.textColor = NSExpression(forConstantValue: UIColor.white)
         shapeLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: -4, dy: -4)))
